@@ -54,5 +54,5 @@ do
 
   echo "Status:" $STAT, "Connecting Count, Total:" $CONNECTINGCOUNT $TOTALCONNECTINGCOUNT, "Offline Count, Total:" $OFFLINECOUNT $TOTALOFFLINECOUNT
   echo "sleepting for 5 mins"
-  sleep 1s
+  sleep 300s
 done
