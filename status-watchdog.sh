@@ -1,3 +1,4 @@
+PEERSURL="https://raw.githubusercontent.com/MinaProtocol/coda-automation/bug-bounty-net/terraform/testnets/testworld/peers.txt"
 STAT=""
 CONNECTINGCOUNT=0
 OFFLINECOUNT=0
@@ -7,6 +8,9 @@ do
   date; 
   STAT="$(coda client status -json | jq .sync_status)"
   echo $STAT
+
+  #TESTING set stat to status to test
+  #STAT="\"Offline\""
  
   if [[ "$STAT" == "\"Synced\"" ]] ; then
     echo "In Sync-all good"
@@ -22,7 +26,7 @@ do
   if [[ "$STAT" == "\"Offline\"" ]] ; then
     echo "Offline"
     ((OFFLINECOUNT++))
-    wget -O ~/new-peers.txt https://raw.githubusercontent.com/MinaProtocol/coda-automation/bug-bounty-net/terraform/testnets/testworld/peers.txt
+    wget -O ~/new-peers.txt "${PEERSURL}"
     if ! diff -q peers.txt new-peers.txt ; then 
       echo "updating peers"
       cp new-peers.txt peers.txt
