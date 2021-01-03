@@ -7,10 +7,6 @@ while :
 do
   date; 
   STAT="$(coda client status -json | jq .sync_status)"
-
-  #TESTING set stat to status to test
-  #echo $STAT
-  #STAT="\"Offline\""
  
   if [[ "$STAT" == "\"Synced\"" ]] ; then
     echo "In Sync-all good"
