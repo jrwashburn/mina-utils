@@ -2,12 +2,25 @@ PEERSURL="https://raw.githubusercontent.com/MinaProtocol/coda-automation/bug-bou
 STAT=""
 CONNECTINGCOUNT=0
 OFFLINECOUNT=0
+TOTALCONNECTINGCOUNT=0
+TOTALOFFLINECOUNT=0
+
+function Update_Peers() {
+  wget -O ~/new-peers.txt "${PEERSURL}"
+  if ! diff -q peers.txt new-peers.txt ; then 
+    echo "updating peers"
+    cp new-peers.txt peers.txt
+    cat peers.txt | xargs -I % coda advanced add-peers %
+  else
+    echo "peers are the same - not adding to daemon"
+  fi  
+}
 
 while :
 do
-  date; 
+  date
   STAT="$(coda client status -json | jq .sync_status)"
- 
+
   if [[ "$STAT" == "\"Synced\"" ]] ; then
     echo "In Sync-all good"
     OFFLINECOUNT=0
@@ -17,19 +30,14 @@ do
   if [[ "$STAT" == "\"Connecting\"" ]] ; then
     echo "Connecting"
     ((CONNECTINGCOUNT++))
+    ((TOTALCONNECTINGCOUNT++))
   fi
 
   if [[ "$STAT" == "\"Offline\"" ]] ; then
     echo "Offline"
     ((OFFLINECOUNT++))
-    wget -O ~/new-peers.txt "${PEERSURL}"
-    if ! diff -q peers.txt new-peers.txt ; then 
-      echo "updating peers"
-      cp new-peers.txt peers.txt
-      cat peers.txt | xargs -I % coda advanced add-peers %
-    else
-      echo "peers are the same - not adding to daemon"
-    fi
+    ((TOTALOFFLINECOUNT++))
+    Update_Peers
   fi
   
   if [[ "$CONNECTINGCOUNT" > 1 ]] ; then
@@ -44,7 +52,7 @@ do
     OFFLINECOUNT=0
   fi
 
-  echo "Status:" $STAT, "Connecting Count:" $CONNECTINGCOUNT, "Offline Count:" $OFFLINECOUNT
+  echo "Status:" $STAT, "Connecting Count, Total:" $CONNECTINGCOUNT $TOTALCONNECTINGCOUNT, "Offline Count, Total:" $OFFLINECOUNT $TOTALOFFLINECOUNT
   echo "sleepting for 5 mins"
-  sleep 300s
+  sleep 1s
 done
