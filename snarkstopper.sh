@@ -5,8 +5,8 @@
 readonly SECONDS_PER_MINUTE=60
 readonly SECONDS_PER_HOUR=3600
 # max fee established the upper boundary of fee, which will be divided by fee scale
-readonly MAX_FEE=100
-readonly FEE_SCALE=10000
+readonly MAX_FEE=1000
+readonly FEE_SCALE=1000
 readonly SW_ADDRESS=B62qjcj33LFRvZ3gF41UyQm6mfB3nnLDFSonRCv2eCEoXT8Aw3BCKuJ
 
 while true
