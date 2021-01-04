@@ -6,3 +6,5 @@ Mina protocol hosting utilities
 
 * snark-stopper.sh checks mina status to determine when the next block producer opportunity is; turns off snark worker ~5 mins before the slot, resumes after 5 mins. Will set a random snark work fee between 1 and .001 (controlled with MAX_FEE / FEE_SCALE variables) 
 	* Make sure to update the SW_ADDRESS to your snark worker address!
+
+* update-peers.sh checks test world location for peers, and if updated, uses coda advanced add-peers to add them (unnecessary if running status-watchdog.sh, which already does this.)
