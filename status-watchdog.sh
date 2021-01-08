@@ -7,13 +7,14 @@ TOTALOFFLINECOUNT=0
 
 function Update_Peers() {
   wget -O ~/new-peers.txt "${PEERSURL}"
-  if ! diff -q peers.txt new-peers.txt; then
+  if ! diff -q ~/peers.txt ~/new-peers.txt; then
     echo "updating peers"
-    cp new-peers.txt peers.txt
-    cat peers.txt | xargs -I % coda advanced add-peers %
+    cp ~/new-peers.txt ~/peers.txt
+    cat ~/peers.txt | xargs -I % coda advanced add-peers %
   else
     echo "peers are the same - not adding to daemon"
   fi
+  rm ~/new-peers.txt
 }
 
 while :; do
