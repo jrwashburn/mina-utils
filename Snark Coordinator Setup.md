@@ -23,5 +23,5 @@ Now, with node 1 running coda daemon (with -run-snark-coordinator), on node 2+, 
 Note you don't need to run the mina daemon on the worker nodes, just ```coda internal snark-worker```.
 
 //TODO: 
-1) setup systemd templates - jkrauska knock-off
+1) setup systemd templates - jkrauska knock-off (https://github.com/jkrauska/coda-systemd)
 2) decide to run 1 thread per or just let the snark worker decide
