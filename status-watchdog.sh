@@ -55,4 +55,5 @@ while :; do
   echo "Status:" $STAT, "Connecting Count, Total:" $CONNECTINGCOUNT $TOTALCONNECTINGCOUNT, "Offline Count, Total:" $OFFLINECOUNT $TOTALOFFLINECOUNT
   echo "sleeping for 5 mins"
   sleep 300s
+  test $? -gt 128 && break;
 done
