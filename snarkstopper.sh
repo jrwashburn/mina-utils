@@ -5,9 +5,9 @@
 readonly SECONDS_PER_MINUTE=60
 readonly SECONDS_PER_HOUR=3600
 # max fee established the upper boundary of fee, which will be divided by fee scale
-readonly MAX_FEE=1000
-readonly FEE_SCALE=1000
-readonly SW_ADDRESS=B62qjcj33LFRvZ3gF41UyQm6mfB3nnLDFSonRCv2eCEoXT8Aw3BCKuJ
+#readonly MAX_FEE=1000
+#readonly FEE_SCALE=1000
+readonly SW_ADDRESS=B62qkBqSkXgkirtU3n8HJ9YgwHh3vUD6kGJ5ZRkQYGNPeL5xYL2tL1L
 
 while true
 do 
@@ -41,14 +41,16 @@ then
     coda client set-snark-worker -address ${SW_ADDRESS}
 else
     # Do nothing
-    fee=$(( $RANDOM % ${MAX_FEE} ))
-    fee=$( bc <<< "scale=3;$fee/ ${FEE_SCALE}" )
+    #fee=$(( $RANDOM % ${MAX_FEE} ))
+    #fee=$( bc <<< "scale=3;$fee/ ${FEE_SCALE}" )
+    fee=0.25
     echo "setting snark work fee to " $fee
     coda client set-snark-work-fee $fee
     echo "Block too far away"
 fi
 
 SLEEP="$((${TIMEBEFORENEXTSEC} / 2))"
-    echo "Sleep for $SLEEP"
-    sleep $SLEEP
+echo "Sleep for $SLEEP"
+sleep $SLEEP
+test $? -gt 128 && break;
 done
