@@ -1,21 +1,8 @@
-PEERSURL="https://raw.githubusercontent.com/MinaProtocol/coda-automation/bug-bounty-net/terraform/testnets/testworld/peers.txt"
 STAT=""
 CONNECTINGCOUNT=0
 OFFLINECOUNT=0
 TOTALCONNECTINGCOUNT=0
 TOTALOFFLINECOUNT=0
-
-function Update_Peers() {
-  wget -O ~/new-peers.txt "${PEERSURL}"
-  if ! diff -q ~/peers.txt ~/new-peers.txt; then
-    echo "updating peers"
-    cp ~/new-peers.txt ~/peers.txt
-    cat ~/peers.txt | xargs -I % coda advanced add-peers %
-  else
-    echo "peers are the same - not adding to daemon"
-  fi
-  rm ~/new-peers.txt
-}
 
 while :; do
   date
@@ -37,7 +24,7 @@ while :; do
     echo "Offline"
     ((OFFLINECOUNT++))
     ((TOTALOFFLINECOUNT++))
-    Update_Peers
+    #Update_Peers
   fi
 
   if [[ "$CONNECTINGCOUNT" > 1 ]]; then
