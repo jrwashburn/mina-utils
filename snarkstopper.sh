@@ -12,7 +12,7 @@ readonly SW_ADDRESS=B62qkBqSkXgkirtU3n8HJ9YgwHh3vUD6kGJ5ZRkQYGNPeL5xYL2tL1L
 while true
 do 
 # Get next proposal time and remove "
-NEXTPROP="$(coda client status -json | jq .next_block_production[1])"
+NEXTPROP="$(coda client status -json | jq .next_block_production.timing[1].time)"
 NEXTPROP="${NEXTPROP:1}"
 NEXTPROP="${NEXTPROP:0:-1}"
 echo "Next prop is at  $NEXTPROP"
