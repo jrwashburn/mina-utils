@@ -1,3 +1,5 @@
+We also run The Mina Pool - https://theminapool.com
+
 # mina-utils
 Mina protocol hosting utilities 
 
