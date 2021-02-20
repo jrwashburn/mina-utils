@@ -1,3 +1,6 @@
+#UPDATE YOUR POOL ADDRESS!
+#ASSUMES ~/logs folder for logs. Should probably move to /var 
+
 POOLADDRESS='B62YOURPOOL';
 TODAY=`date +%Y%m%d-%H%M%S`;
 STAKINGFILE=~/logs/staking-ledger-"$TODAY.json";
