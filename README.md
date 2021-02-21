@@ -16,7 +16,9 @@ systemd config file to run mina archive service.
 copy this file to /usr/lib/systemd/user/mina-archive.service
 uses same environment file as coda daemon (~/.mina-env)
 	
-	* Assumes POSTGRES_URI variable will be found in .mina-env - that should be your full URI to login to the postgres database. Note this is unsafe w/r/t that database username and password laying around in config, but even worse, being available in a process list. That's how it works for right now.
+	* Assumes POSTGRES_URI variable will be found in .mina-env - that should be your full URI to login to the postgres database. 
+	Note this is unsafe w/r/t that database username and password laying around in config, but even worse, being available in a process list. 
+	That's how it works for right now.
 		
 		postgres://USERNAME:PASSWORD@POSTGRESHOST:POSTGRESPORT/archive"
 
