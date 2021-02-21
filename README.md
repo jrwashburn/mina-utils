@@ -11,18 +11,19 @@ I know it could be easier and provide more automation and parameterization.... j
 
 
 * mina-archive.service
-systemd config file to run mina archive service. 
-cp this file to /usr/lib/systemd/user/mina-archive.service
-uses same environment file as coda daemon (~/.mina-env)
-Assumes POSTGRES_URI variable will be found in .mina-env - that should be your full URI to login to the postgres database
-	postgres://USERNAME:PASSWORD@POSTGRESHOST:POSTGRESPORT/archive"
-Also assumes you have setup the archive service
-	sudo apt-get install mina-archive
-	createdb -h postgres://USERNAME:PASSWORD@POSTGRESHOST -p POSTGRESPORT -e archive
-	psql -h postgres://USERNAME:PASSWORD@POSTGRESHOST -p POSTGRESPORT -d archive -f <(curl -Ls https://raw.githubusercontent.com/MinaProtocol/mina/master/src/app/archive/create_schema.sql)
-	coda-archive run --postgres-uri postgres://USERNAME:PASSWORD@POSTGRESHOST:POSTGRESPORT/archive --server-port 3086 &
-You may also need to make network changes to allow your node to connect to the archive service on port 3086
-	sudo ufw allow from NODEIP to any port 3086
+	systemd config file to run mina archive service. 
+	cp this file to /usr/lib/systemd/user/mina-archive.service
+	uses same environment file as coda daemon (~/.mina-env)
+	
+	* Assumes POSTGRES_URI variable will be found in .mina-env - that should be your full URI to login to the postgres database
+		postgres://USERNAME:PASSWORD@POSTGRESHOST:POSTGRESPORT/archive"
+	* Also assumes you have setup the archive service
+		sudo apt-get install mina-archive
+		createdb -h postgres://USERNAME:PASSWORD@POSTGRESHOST -p POSTGRESPORT -e archive
+		psql -h postgres://USERNAME:PASSWORD@POSTGRESHOST -p POSTGRESPORT -d archive -f <(curl -Ls https://raw.githubusercontent.com/MinaProtocol/mina/master/src/app/archive/create_schema.sql)
+		coda-archive run --postgres-uri postgres://USERNAME:PASSWORD@POSTGRESHOST:POSTGRESPORT/archive --server-port 3086 &
+	* You may also need to make network changes to allow your node to connect to the archive service on port 3086
+		sudo ufw allow from NODEIP to any port 3086
 
 
 * snark-stopper.sh checks mina status to determine when the next block producer opportunity is; turns off snark worker ~5 mins before the slot, resumes after 5 mins. Will set a random snark work fee between 1 and .001 (controlled with MAX_FEE / FEE_SCALE variables) 
