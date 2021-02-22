@@ -1,8 +1,10 @@
 STAT=""
+ARCHIVESTAT=0
 CONNECTINGCOUNT=0
 OFFLINECOUNT=0
 TOTALCONNECTINGCOUNT=0
 TOTALOFFLINECOUNT=0
+ARCHIVEDOWNCOUNT=0
 
 while :; do
   date
@@ -38,6 +40,16 @@ while :; do
     systemctl --user restart mina
     OFFLINECOUNT=0
   fi
+
+  ARCHIVERUNNING=`ps -A | grep coda-archive | wc -l`
+
+  if [[ "$ARCHIVERUNNING" > 0 ]]; then
+    echo "Archive is Running - ok"
+    ARCHIVERRUNNING=0
+  else
+    echo "ARCHIVE IS NOT RUNNING - ERROR"
+    ((ARCHIVEDOWNCOUNT++))
+  fi 
 
   echo "Status:" $STAT, "Connecting Count, Total:" $CONNECTINGCOUNT $TOTALCONNECTINGCOUNT, "Offline Count, Total:" $OFFLINECOUNT $TOTALOFFLINECOUNT
   echo "sleeping for 5 mins"
