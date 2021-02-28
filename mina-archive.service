@@ -9,7 +9,7 @@ EnvironmentFile=%h/.mina-env
 Type=simple
 Restart=always
 RestartSec=15
-ExecStart=/usr/local/bin/coda-archive run \
+ExecStart=/usr/local/bin/mina-archive run \
  --postgres-uri $POSTGRES_URI \
  --server-port 3086 
 

@@ -8,7 +8,7 @@ ARCHIVEDOWNCOUNT=0
 
 while :; do
   date
-  STAT="$(coda client status -json | jq .sync_status)"
+  STAT="$(mina client status -json | jq .sync_status)"
 
   if [[ "$STAT" == "\"Synced\"" ]]; then
     echo "In Sync-all good"

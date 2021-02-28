@@ -4,15 +4,13 @@
 # Set readonly variables
 readonly SECONDS_PER_MINUTE=60
 readonly SECONDS_PER_HOUR=3600
-# max fee established the upper boundary of fee, which will be divided by fee scale
-#readonly MAX_FEE=1000
-#readonly FEE_SCALE=1000
-readonly SW_ADDRESS=B62qkBqSkXgkirtU3n8HJ9YgwHh3vUD6kGJ5ZRkQYGNPeL5xYL2tL1L
+readonly FEE 0.25
+readonly SW_ADDRESS= ### SET YOUR SNARK WORKER ADDRESS HERE ###
 
 while true
 do 
 # Get next proposal time and remove "
-NEXTPROP="$(coda client status -json | jq .next_block_production.timing[1].time)"
+NEXTPROP="$(mina client status -json | jq .next_block_production.timing[1].time)"
 NEXTPROP="${NEXTPROP:1}"
 NEXTPROP="${NEXTPROP:0:-1}"
 echo "Next prop is at  $NEXTPROP"
@@ -34,22 +32,18 @@ echo "in minutes $TIMEBEFORENEXTMIN"
 if [ $TIMEBEFORENEXTMIN -lt 3 ]
 then
     echo "Stop snarking"
-    coda client set-snark-worker
+    mina client set-snark-worker
     echo "Sleep 600"
     sleep 600
     echo "Start snarking"
-    coda client set-snark-worker -address ${SW_ADDRESS}
+    mina client set-snark-worker -address ${SW_ADDRESS}
 else
-    # Do nothing
-    #fee=$(( $RANDOM % ${MAX_FEE} ))
-    #fee=$( bc <<< "scale=3;$fee/ ${FEE_SCALE}" )
-    fee=0.25
-    echo "setting snark work fee to " $fee
-    coda client set-snark-work-fee $fee
+    echo "setting snark work fee to " $FEE
+    mina client set-snark-work-fee $FEE
     echo "Block too far away"
 fi
 
-SLEEP="$((${TIMEBEFORENEXTSEC} / 2))"
+SLEEP="$((${TIMEBEFORENEXTSEC} / 4))"
 echo "Sleep for $SLEEP"
 sleep $SLEEP
 test $? -gt 128 && break;

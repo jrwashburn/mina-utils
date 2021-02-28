@@ -2,4 +2,3 @@
 ~/mina-utils/status-watchdog.sh >>~/logs/status-watchdog.log &
 jobs
 disown $(jobs -p)
-
