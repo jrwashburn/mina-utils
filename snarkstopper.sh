@@ -4,7 +4,7 @@
 # Set readonly variables
 readonly SECONDS_PER_MINUTE=60
 readonly SECONDS_PER_HOUR=3600
-readonly FEE 0.25
+readonly FEE=0.25
 readonly SW_ADDRESS= ### SET YOUR SNARK WORKER ADDRESS HERE ###
 
 while true
