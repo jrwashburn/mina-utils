@@ -1,5 +1,8 @@
 We also run The Mina Pool - https://theminapool.com
 
+** THIS REPO IS DEPRECATED **  
+** SEE https://github.com/jrwashburn/mina-node-install **
+
 # mina-utils
 Mina protocol hosting utilities 
 
